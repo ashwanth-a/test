@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .form-container {
+            transition: all 0.5s ease-in-out;
+        }
+        .hidden-form {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .active-form {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="glass w-full max-w-md rounded-2xl shadow-2xl overflow-hidden p-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="Step 12 15v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h6m-6 4h12m0 0l-4-4m4 4l-4 4" />
+                </svg>
+            </div>
+            <h2 id="form-title" class="text-2xl font-bold text-gray-800">Welcome Back</h2>
+            <p id="form-subtitle" class="text-gray-500 mt-2">Please enter your details to sign in</p>
+        </div>
+
+        <!-- Sign In Form -->
+        <form id="sign-in-form" class="active-form space-y-5">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input type="email" required placeholder="name@company.com" 
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+            </div>
+            <div>
+                <div class="flex justify-between mb-1">
+                    <label class="text-sm font-medium text-gray-700">Password</label>
+                    <a href="#" class="text-sm text-indigo-600 hover:text-indigo-500">Forgot?</a>
+                </div>
+                <input type="password" required placeholder="••••••••" 
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+            </div>
+            <div class="flex items-center">
+                <input type="checkbox" id="remember" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                <label for="remember" class="ml-2 text-sm text-gray-600">Remember me</label>
+            </div>
+            <button type="submit" 
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg">
+                Sign In
+            </button>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="sign-up-form" class="hidden-form space-y-5">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                    <input type="text" placeholder="John" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                    <input type="text" placeholder="Doe" 
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+                </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input type="email" required placeholder="name@company.com" 
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                <input type="password" required placeholder="Minimum 8 characters" 
+                    class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition">
+            </div>
+            <p class="text-xs text-gray-500">By signing up, you agree to our <a href="#" class="text-indigo-600 underline">Terms of Service</a>.</p>
+            <button type="submit" 
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg">
+                Create Account
+            </button>
+        </form>
+
+        <!-- Footer Toggle -->
+        <div class="mt-8 pt-6 border-t border-gray-100 text-center">
+            <p id="toggle-text" class="text-gray-600">
+                Don't have an account? 
+                <button id="switch-to-signup" class="text-indigo-600 font-semibold hover:underline focus:outline-none">Sign Up</button>
+            </p>
+        </div>
+
+        <!-- Notification Toast (Hidden by default) -->
+        <div id="toast" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full shadow-xl opacity-0 transition-opacity pointer-events-none">
+            Success! Processing request...
+        </div>
+    </div>
+
+    <script>
+        const signInForm = document.getElementById('sign-in-form');
+        const signUpForm = document.getElementById('sign-up-form');
+        const switchBtn = document.getElementById('switch-to-signup');
+        const toggleText = document.getElementById('toggle-text');
+        const formTitle = document.getElementById('form-title');
+        const formSubtitle = document.getElementById('form-subtitle');
+        const toast = document.getElementById('toast');
+
+        let isLogin = true;
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.style.opacity = '1';
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+
+        switchBtn.addEventListener('click', () => {
+            isLogin = !isLogin;
+            
+            if (isLogin) {
+                // Switch to Sign In
+                signUpForm.classList.replace('active-form', 'hidden-form');
+                setTimeout(() => {
+                    signInForm.classList.replace('hidden-form', 'active-form');
+                }, 50);
+                
+                formTitle.textContent = "Welcome Back";
+                formSubtitle.textContent = "Please enter your details to sign in";
+                toggleText.innerHTML = `Don't have an account? <button id="switch-to-signup" class="text-indigo-600 font-semibold hover:underline focus:outline-none">Sign Up</button>`;
+                
+                // Re-bind the event listener because we replaced innerHTML
+                document.getElementById('switch-to-signup').addEventListener('click', () => switchBtn.click());
+            } else {
+                // Switch to Sign Up
+                signInForm.classList.replace('active-form', 'hidden-form');
+                setTimeout(() => {
+                    signUpForm.classList.replace('hidden-form', 'active-form');
+                }, 50);
+                
+                formTitle.textContent = "Create Account";
+                formSubtitle.textContent = "Join today";
+                toggleText.innerHTML = `Already have an account? <button id="switch-to-signin" class="text-indigo-600 font-semibold hover:underline focus:outline-none">Sign In</button>`;
+                
+                document.getElementById('switch-to-signin').addEventListener('click', () => switchBtn.click());
+            }
+        });
+
+        // Form Submission Handlers
+        [signInForm, signUpForm].forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const type = form.id === 'sign-in-form' ? 'Sign In' : 'Registration';
+                showToast(`${type} successful! (Simulation)`);
+            });
+        });
+    </script>
+</body>
+</html>
